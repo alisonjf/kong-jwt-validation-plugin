@@ -45,24 +45,6 @@ end
   JWT public interface
 ]]--
 
-
---- Verify a JWT signature
--- Verify the current JWT signature against a given key
--- @param key Key against which to verify the signature
--- @return A boolean indicating if the signature if verified or not
--- function _M:verify_signature(key)
---   return alg_verify[self.header.alg](self.header_64 .. "." .. self.claims_64, self.signature, key)
--- end
-
-
--- local function validate_signature(key)
---     -- Verify signatures
---   if jwt:verify_signature(key) then
---     kong.log.debug('JWT signature verified')
---     return nil
---   end
--- end
-
 --- Verify id and exp claims
 -- Claims are verified by type and a check.
 -- @return A boolean indicating true if no errors zere found
@@ -70,7 +52,7 @@ end
 local function verify_claims(claims)
   local errors
 
-  id = claims["id"]
+  local id = claims["id"]
   if id == nil then
     errors = add_error(errors, "id", "is not present")  
   elseif type(id) ~= "string" then
@@ -79,7 +61,7 @@ local function verify_claims(claims)
     kong.service.request.set_header("x-user-id", id)
   end
 
-  exp = claims["exp"]
+  local exp = claims["exp"]
   if exp == nil then
     errors = add_error(errors, "exp", "is not present")  
   elseif type(exp) ~= "number" then
@@ -156,9 +138,10 @@ local function do_authentication(conf)
       return false, { status = 403, message = "Token expired" }
     end
 
-    err = validate_signature(conf.signature_key)
-    if err ~= nil then
-        return false, { status = 401, message = "Invalid token signature" }
+    local verified_signature = jwt:verify_signature(conf.signature_key)
+    if not verified_signature then
+      kong.log.err("Invalid signature")
+      return false, { status = 401, message = "Invalid token signature" }
     end
 
     return true
