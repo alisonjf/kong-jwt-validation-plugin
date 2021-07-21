@@ -1,5 +1,5 @@
 package = "kong-plugin-jwt-validation"  
-version = "1.0-1"
+version = "1.1-1"
 
 local pluginName = package:match("^kong%-plugin%-(.+)$")  -- "jwt-validation"
 supported_platforms = {"linux", "macosx"}
@@ -12,9 +12,7 @@ description = {
    homepage = "https://github.com/alisonjf/kong-jwt-validation-plugin.git",
    license = "MIT"
 }
-dependencies = {
-  "lua ~> 5"
-}
+dependencies = {}
 build = {
    type = "builtin",
    modules = {
