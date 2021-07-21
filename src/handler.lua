@@ -11,6 +11,7 @@ local jwt_decoder = require "kong.plugins.jwt.jwt_parser"
 
 local type = type
 local time = ngx.time
+local re_gmatch = ngx.re.gmatch
 local error = error
 local insert = table.insert
 local tostring = tostring
