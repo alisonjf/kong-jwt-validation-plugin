@@ -70,17 +70,19 @@ local function verify_claims(claims)
   local errors
 
   id = claims["id"]
-  if type(id) ~= "string" then
+  if id == nil then
+    errors = add_error(errors, "id", "is not present")  
+  elseif type(id) ~= "string" then
     errors = add_error(errors, "id", "must be a string")
-  elseif id == nil then
-    errors = add_error(errors, "id", "is not present")
+  else
+    kong.service.request.set_header("x-user-id", id)
   end
 
   exp = claims["exp"]
-  if type(exp) ~= "number" then
+  if exp == nil then
+    errors = add_error(errors, "exp", "is not present")  
+  elseif type(exp) ~= "number" then
     errors = add_error(errors, "exp", "must be a number")
-  elseif exp == nil then
-    errors = add_error(errors, "exp", "is not present")
   end
 
   return errors == nil, errors

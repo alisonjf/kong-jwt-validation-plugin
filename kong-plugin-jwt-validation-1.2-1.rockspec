@@ -1,5 +1,5 @@
 package = "kong-plugin-jwt-validation"  
-version = "1.1-1"
+version = "1.2-1"
 
 local pluginName = package:match("^kong%-plugin%-(.+)$")  -- "jwt-validation"
 supported_platforms = {"linux", "macosx"}
