@@ -10,7 +10,7 @@ source = {
 description = {
    summary = "A plugin for Kong which adds a custom generated JWT expiration time and user id claim validation",
    homepage = "https://github.com/alisonjf/kong-jwt-validation-plugin.git",
-   license = "GNU General Public License"
+   license = "MIT"
 }
 dependencies = {
   "lua ~> 5"
