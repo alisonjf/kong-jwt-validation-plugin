@@ -1,5 +1,5 @@
 package = "kong-plugin-jwt-validation"
-version = "1.2-7"
+version = "1.2-8"
 source = {
    url = "git+https://github.com/alisonjf/kong-jwt-validation-plugin.git"
 }
