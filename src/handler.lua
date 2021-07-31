@@ -87,6 +87,15 @@ local function verify_claims(claims)
     kong.service.request.set_header("x-user-id", id)
   end
 
+  local profile_id = claims["profile"]
+  if profile_id == nil then
+    errors = add_error(errors, "profile", "is not present")  
+  elseif type(profile_id) ~= "number" then
+    errors = add_error(errors, "profile", "must be a number")
+  else
+    kong.service.request.set_header("x-user-profile-id", id)
+  end
+
   local exp = claims["exp"]
   if exp == nil then
     errors = add_error(errors, "exp", "is not present")  
