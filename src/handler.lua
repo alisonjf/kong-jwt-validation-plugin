@@ -94,7 +94,7 @@ local function verify_claims(claims)
   elseif type(profile_id) ~= "number" then
     errors = add_error(errors, "profile", "must be a number")
   else
-    kong.service.request.set_header("x-user-profile-id", id)
+    kong.service.request.set_header("x-user-profile-id", profile_id)
   end
 
   local exp = claims["exp"]
