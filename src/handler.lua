@@ -20,6 +20,7 @@ local getmetatable = getmetatable
 
 local JwtValidationHandler = BasePlugin:extend()
 
+JwtValidationHandler.PRIORITY = 100
 
 local err_list_mt = {}
 
