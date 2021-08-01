@@ -85,7 +85,12 @@ local function verify_claims(claims)
   elseif type(id) ~= "string" then
     errors = add_error(errors, "id", "must be a string")
   else
-    kong.service.request.set_header("x-user-id", id)
+    id = tonumber(id)
+    if id == nil then
+      errors = add_error(errors, "id", "is invalid. It must be a number represented as a string")
+    else
+      kong.service.request.set_header("x-user-id", id)
+    end
   end
 
   local profile_id = claims["profile"]
